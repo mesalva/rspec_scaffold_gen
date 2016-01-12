@@ -1,0 +1,1 @@
+# rspec_scaffold_gen
