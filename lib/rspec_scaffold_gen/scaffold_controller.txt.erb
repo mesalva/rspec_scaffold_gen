@@ -1,0 +1,128 @@
+%{ require 'rails_helper'
+
+RSpec.describe <%=@model_class_name%>Controller, type: :controller do
+
+  # This should return the minimal set of attributes required to create a valid
+  # <%=@model_class_name%>. As you add validations to <%=@model_class_name%>, be sure to
+  # adjust the attributes here as well.
+  fixtures :all
+
+  let(:valid_attributes) {
+    {  }
+  }
+
+  let(:invalid_attributes) {
+    { }
+  }
+
+  # This should return the minimal set of values that should be in the session
+  # in order to pass any filters (e.g. authentication) defined in
+  # <%=@model_class_name%>Controller. Be sure to keep this updated too.
+  let(:valid_session) { {} }
+
+  describe "GET #index" do
+    it "assigns all <%=@model_name%> as @<%=@model_name%>" do
+      <%=@model_class_name%>.destroy_all
+      <%=@model_name%> = <%=@model_class_name%>.create! valid_attributes
+      get :index, {}, valid_session
+      expect(response.body).to eq([<%=@model_name%>].to_json)
+    end
+  end
+
+  describe "GET #show" do
+    it "assigns the requested <%=@model_name%> as @<%=@model_name%>" do
+      <%=@model_name%> = <%=@model_class_name%>.create! valid_attributes
+      get :show, {:id => <%=@model_name%>.to_param}, valid_session
+      expect(response.body).to eq(<%=@model_name%>.to_json)
+    end
+  end
+
+
+  describe "POST #create" do
+    context "with valid params" do
+      it "creates a new <%=@model_class_name%>" do
+        expect {
+          post :create, {:<%=@model_name%> => valid_attributes}, valid_session
+        }.to change(<%=@model_class_name%>, :count).by(1)
+      end
+
+      it "assigns a newly created <%=@model_name%> as @<%=@model_name%>" do
+        post :create, {:<%=@model_name%> => valid_attributes}, valid_session
+        expect(response.body).to eq(<%=@model_class_name%>.last.to_json)
+      end
+
+      it "returns http code created" do
+        post :create, {:<%=@model_name%> => valid_attributes}, valid_session
+        expect(response).to have_http_status(:created)
+      end
+    end
+
+    context "with invalid params" do
+      it "should not persist record" do
+        expect {
+          post :create, {:<%=@model_name%> => invalid_attributes}, valid_session
+        }.to change(<%=@model_class_name%>, :count).by(0)
+      end
+
+      it "returns http status unprocessable_entity" do
+        post :create, {:<%=@model_name%> => invalid_attributes}, valid_session
+        expect(response).to have_http_status(:unprocessable_entity)
+      end
+    end
+  end
+
+
+  describe "PUT #update" do
+    context "with valid params" do
+      let(:new_attributes) {
+        { }
+      }
+
+      it "updates the requested <%=@model_name%>" do
+        <%=@model_name%> = <%=@model_class_name%>.create! valid_attributes
+        put :update, {:id => <%=@model_name%>.to_param, :<%=@model_name%> => new_attributes}, valid_session
+        <%=@model_name%>.reload
+        skip("add validation here)
+      end
+
+      it "returns the updated <%=@model_name%>" do
+        <%=@model_name%> = <%=@model_class_name%>.create! valid_attributes
+        put :update, {:id => <%=@model_name%>.to_param, :<%=@model_name%> => valid_attributes}, valid_session
+        expect(response.body).to eq(<%=@model_class_name%>.last.to_json)
+      end
+
+      it "returns http code ok" do
+        <%=@model_name%> = <%=@model_class_name%>.create! valid_attributes
+        put :update, {:id => <%=@model_name%>.to_param, :<%=@model_name%> => valid_attributes}, valid_session
+        expect(response).to have_http_status(:ok)
+      end
+    end
+
+    context "with invalid params" do
+
+      it "returns http status unprocessable_entity - 422" do
+        <%=@model_name%> = <%=@model_class_name%>.create! valid_attributes
+        put :update, {:id => <%=@model_name%>.to_param, :<%=@model_name%> => invalid_attributes}, valid_session
+        expect(response).to have_http_status(:unprocessable_entity)
+      end
+    end
+  end
+
+  describe "DELETE #destroy" do
+    it "destroys the requested <%=@model_name%>" do
+      <%=@model_name%> = <%=@model_class_name%>.create! valid_attributes
+      expect {
+        delete :destroy, {:id => <%=@model_name%>.to_param}, valid_session
+      }.to change(<%=@model_class_name%>, :count).by(-1)
+    end
+
+    it "returns http code no_content" do
+      <%=@model_name%> = <%=@model_class_name%>.create! valid_attributes
+      delete :destroy, {:id => <%=@model_name%>.to_param}, valid_session
+      expect(response).to have_http_status(:no_content)
+    end
+  end
+  
+
+end
+}
