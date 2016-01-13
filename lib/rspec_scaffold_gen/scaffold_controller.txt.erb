@@ -53,7 +53,7 @@ RSpec.describe <%=@model_class_name.pluralize%>Controller, type: :controller do
         expect(response.body).to eq(<%=@model_class_name%>.last.to_json)
         json = JSON.parse(response.body).symbolize_keys
         valid_attributes.each do |k,v|
-          expect(valid_attributes[k]).to eq(json[k])
+          expect(valid_attributes[k].to_s).to eq(json[k].to_s)
         end
       end
 
@@ -90,7 +90,7 @@ RSpec.describe <%=@model_class_name.pluralize%>Controller, type: :controller do
         <%=@model_name%>.reload
         json = JSON.parse(response.body).symbolize_keys
         new_attributes.each do |k,v|
-          expect(new_attributes[k]).to eq(json[k])
+          expect(new_attributes[k].to_s).to eq(json[k].to_s)
         end
       end
 
