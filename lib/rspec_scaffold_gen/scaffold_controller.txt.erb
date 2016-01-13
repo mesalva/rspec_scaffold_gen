@@ -28,10 +28,6 @@ RSpec.describe <%=@model_class_name.pluralize%>Controller, type: :controller do
       <%=@model_name%> = <%=@model_class_name%>.create! valid_attributes
       get :index, {}, valid_session
       expect(response.body).to eq([<%=@model_name%>].to_json)
-      json = JSON.parse(response.body).symbolize_keys
-      valid_attributes.each do |k,v|
-        expect(valid_attributes[k]).to eq(json[k])
-      end
     end
   end
 
