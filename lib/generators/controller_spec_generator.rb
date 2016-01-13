@@ -13,6 +13,6 @@ class ControllerSpecGenerator < Rails::Generators::Base
   		type = parts.length > 1 ? parts[1] : nil
   		fields[name.to_sym] = type
   	end
-    create_file "#{Rails.root}/spec/controllers/#{model_name}_controller_spec.rb", generate_controller(model_name, fields)
+    create_file "#{Rails.root}/spec/controllers/#{model_name.pluralize}_controller_spec.rb", generate_controller(model_name, fields)
   end
 end
