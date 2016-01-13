@@ -12,7 +12,7 @@ RSpec.describe <%=@model_class_name.pluralize%>Controller, type: :controller do
   }
 
   let(:invalid_attributes) {
-    { { <%= @fields.map {|k,v| "#{k}: nil"}.join(',') %> } }
+    { <%= @fields.map {|k,v| "#{k}: nil"}.join(',') %> }
   }
 
   
