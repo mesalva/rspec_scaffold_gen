@@ -9,9 +9,9 @@ Gem::Specification.new do |s|
   s.version     = RspecScaffoldGen::VERSION
   s.authors     = ["Ricardo Baumann"]
   s.email       = ["ricardo.luis.baumann@gmail.com"]
-  s.homepage    = "TODO"
-  s.summary     = "TODO: Summary of RspecScaffoldGen."
-  s.description = "TODO: Description of RspecScaffoldGen."
+  s.homepage    = "http://github.com/ricardobaumann"
+  s.summary     = "Rspec controller scaffold generator"
+  s.description = "Rspec controller scaffold generator"
   s.license     = "MIT"
 
   s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.rdoc"]

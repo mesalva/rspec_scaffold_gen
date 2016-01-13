@@ -1,4 +1,4 @@
-%{ require 'rails_helper'
+require 'rails_helper'
 
 RSpec.describe <%=@model_class_name%>Controller, type: :controller do
 
@@ -8,12 +8,14 @@ RSpec.describe <%=@model_class_name%>Controller, type: :controller do
   fixtures :all
 
   let(:valid_attributes) {
-    {  }
+    { <%= @fields.map {|k,v| "#{k}: nil"}.join(',') %> }
   }
 
   let(:invalid_attributes) {
-    { }
+    { { <%= @fields.map {|k,v| "#{k}: nil"}.join(',') %> } }
   }
+
+  
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
@@ -21,11 +23,15 @@ RSpec.describe <%=@model_class_name%>Controller, type: :controller do
   let(:valid_session) { {} }
 
   describe "GET #index" do
-    it "assigns all <%=@model_name%> as @<%=@model_name%>" do
+    it "should retrieve all fields as it were created%>" do
       <%=@model_class_name%>.destroy_all
       <%=@model_name%> = <%=@model_class_name%>.create! valid_attributes
       get :index, {}, valid_session
       expect(response.body).to eq([<%=@model_name%>].to_json)
+      json = JSON.parse(response.body).symbolize_keys
+      valid_attributes.each do |k,v|
+        expect(valid_attributes[k]).to eq(json[k])
+      end
     end
   end
 
@@ -46,9 +52,13 @@ RSpec.describe <%=@model_class_name%>Controller, type: :controller do
         }.to change(<%=@model_class_name%>, :count).by(1)
       end
 
-      it "assigns a newly created <%=@model_name%> as @<%=@model_name%>" do
+      it "returns the newly created <%=@model_name%>" do
         post :create, {:<%=@model_name%> => valid_attributes}, valid_session
         expect(response.body).to eq(<%=@model_class_name%>.last.to_json)
+        json = JSON.parse(response.body).symbolize_keys
+        valid_attributes.each do |k,v|
+          expect(valid_attributes[k]).to eq(json[k])
+        end
       end
 
       it "returns http code created" do
@@ -75,14 +85,17 @@ RSpec.describe <%=@model_class_name%>Controller, type: :controller do
   describe "PUT #update" do
     context "with valid params" do
       let(:new_attributes) {
-        { }
+        { <%= @fields.map {|k,v| "#{k}: nil"}.join(',') %> }
       }
 
       it "updates the requested <%=@model_name%>" do
         <%=@model_name%> = <%=@model_class_name%>.create! valid_attributes
         put :update, {:id => <%=@model_name%>.to_param, :<%=@model_name%> => new_attributes}, valid_session
         <%=@model_name%>.reload
-        skip("add validation here)
+        json = JSON.parse(response.body).symbolize_keys
+        valid_attributes.each do |k,v|
+          expect(valid_attributes[k]).to eq(json[k])
+        end
       end
 
       it "returns the updated <%=@model_name%>" do
@@ -100,7 +113,7 @@ RSpec.describe <%=@model_class_name%>Controller, type: :controller do
 
     context "with invalid params" do
 
-      it "returns http status unprocessable_entity - 422" do
+      it "returns http status unprocessable_entity" do
         <%=@model_name%> = <%=@model_class_name%>.create! valid_attributes
         put :update, {:id => <%=@model_name%>.to_param, :<%=@model_name%> => invalid_attributes}, valid_session
         expect(response).to have_http_status(:unprocessable_entity)
@@ -125,4 +138,3 @@ RSpec.describe <%=@model_class_name%>Controller, type: :controller do
   
 
 end
-}

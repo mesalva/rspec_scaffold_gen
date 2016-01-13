@@ -9,6 +9,6 @@ class RspecScaffoldGenTest < ActiveSupport::TestCase
   end
 
   test "generate controller" do
-  	p generate_controller("content_group_item",{})
+  	p generate_controller("content_group_item",{campo1: "string", campo2: "integer"})
   end
 end
