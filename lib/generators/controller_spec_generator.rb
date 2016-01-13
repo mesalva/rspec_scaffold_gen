@@ -6,10 +6,10 @@ class ControllerSpecGenerator < Rails::Generators::Base
   	p ARGV
   	model_name = ARGV[0]
   	fields = {}
-  	ARGV.each_with_index do |val, index| 
+  	ARGV.each_with_index do |val, index|
   		next if index == 0
   		parts = val.split(/:/)
-  		name = parts.first
+  		name = parts.first.downcase
   		type = parts.length > 1 ? parts[1] : nil
   		fields[name.to_sym] = type
   	end

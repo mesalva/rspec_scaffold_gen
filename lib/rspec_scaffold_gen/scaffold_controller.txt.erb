@@ -15,7 +15,7 @@ RSpec.describe <%=@model_class_name.pluralize%>Controller, type: :controller do
     { <%= @fields.map {|k,v| "#{k}: nil"}.join(',') %> }
   }
 
-  
+
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
@@ -89,8 +89,8 @@ RSpec.describe <%=@model_class_name.pluralize%>Controller, type: :controller do
         put :update, {:id => <%=@model_name%>.to_param, :<%=@model_name%> => new_attributes}, valid_session
         <%=@model_name%>.reload
         json = JSON.parse(response.body).symbolize_keys
-        valid_attributes.each do |k,v|
-          expect(valid_attributes[k]).to eq(json[k])
+        new_attributes.each do |k,v|
+          expect(new_attributes[k]).to eq(json[k])
         end
       end
 
@@ -131,6 +131,6 @@ RSpec.describe <%=@model_class_name.pluralize%>Controller, type: :controller do
       expect(response).to have_http_status(:no_content)
     end
   end
-  
+
 
 end
